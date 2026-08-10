@@ -1,0 +1,1638 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Just One Question ❤️</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    overflow: hidden;
+    font-family: "Segoe UI", Arial, sans-serif;
+    background:
+        radial-gradient(circle at top, #ffb6c9 0%, transparent 35%),
+        linear-gradient(135deg, #ff758c, #ff7eb3, #a855f7);
+    color: white;
+}
+
+.page {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    position: relative;
+}
+
+.card {
+    width: min(92%, 520px);
+    min-height: 570px;
+    padding: 45px 28px;
+    border-radius: 30px;
+    text-align: center;
+
+    background: rgba(255,255,255,0.16);
+    border: 1px solid rgba(255,255,255,0.35);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+
+    box-shadow:
+        0 25px 70px rgba(80,0,40,0.3),
+        inset 0 1px rgba(255,255,255,0.3);
+
+    position: relative;
+    z-index: 5;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.heart-icon {
+    font-size: 70px;
+    animation: heartbeat 1.4s infinite;
+    margin-bottom: 20px;
+}
+
+@keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    15% { transform: scale(1.18); }
+    30% { transform: scale(1); }
+    45% { transform: scale(1.15); }
+}
+
+h1 {
+    font-size: clamp(32px, 8vw, 52px);
+    margin-bottom: 18px;
+    line-height: 1.1;
+}
+
+.subtitle {
+    font-size: 18px;
+    line-height: 1.7;
+    max-width: 410px;
+    opacity: 0.95;
+    margin-bottom: 25px;
+}
+
+.question {
+    font-size: clamp(24px, 6vw, 34px);
+    font-weight: 700;
+    margin: 15px 0 35px;
+}
+
+.buttons {
+    position: relative;
+    width: 100%;
+    height: 100px;
+}
+
+button {
+    border: none;
+    padding: 15px 32px;
+    border-radius: 50px;
+    font-size: 18px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.25s, box-shadow 0.25s;
+    position: absolute;
+}
+
+#yesBtn {
+    left: 50%;
+    transform: translateX(-115%);
+    background: white;
+    color: #e91e63;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+}
+
+#yesBtn:hover {
+    transform: translateX(-115%) scale(1.08);
+    box-shadow: 0 12px 35px rgba(255,255,255,0.5);
+}
+
+#noBtn {
+    left: 50%;
+    transform: translateX(15%);
+    background: rgba(0,0,0,0.18);
+    color: white;
+    border: 1px solid rgba(255,255,255,0.5);
+}
+
+#noBtn:hover {
+    transform: translateX(15%) scale(0.95);
+}
+
+.hidden {
+    display: none !important;
+}
+
+.success h1 {
+    color: white;
+}
+
+.love-message {
+    font-size: 19px;
+    line-height: 1.8;
+    margin: 15px auto 25px;
+    max-width: 420px;
+}
+
+.signature {
+    font-size: 17px;
+    opacity: 0.9;
+}
+
+.restart {
+    position: relative;
+    margin-top: 25px;
+    background: white;
+    color: #e91e63;
+}
+
+.restart:hover {
+    transform: scale(1.05);
+}
+
+/* Floating hearts */
+.floating-heart {
+    position: fixed;
+    bottom: -50px;
+    pointer-events: none;
+    animation: floatUp linear forwards;
+    z-index: 1;
+    opacity: 0.75;
+}
+
+@keyframes floatUp {
+    from {
+        transform: translateY(0) rotate(0deg);
+        opacity: 0;
+    }
+    15% {
+        opacity: 0.8;
+    }
+    to {
+        transform: translateY(-110vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* Celebration hearts */
+.celebration-heart {
+    position: fixed;
+    top: -40px;
+    pointer-events: none;
+    z-index: 20;
+    animation: fall linear forwards;
+}
+
+@keyframes fall {
+    to {
+        transform: translateY(110vh) rotate(720deg);
+        opacity: 0;
+    }
+}
+
+/* Glow */
+.glow {
+    position: fixed;
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.12);
+    filter: blur(40px);
+    pointer-events: none;
+}
+
+.glow.one {
+    top: -100px;
+    left: -100px;
+}
+
+.glow.two {
+    bottom: -100px;
+    right: -100px;
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+
+    .card {
+        min-height: 560px;
+        padding: 35px 20px;
+        border-radius: 25px;
+    }
+
+    .heart-icon {
+        font-size: 60px;
+    }
+
+    .subtitle {
+        font-size: 16px;
+    }
+
+    .question {
+        font-size: 27px;
+        margin-bottom: 30px;
+    }
+
+    button {
+        font-size: 16px;
+        padding: 14px 25px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="glow one"></div>
+<div class="glow two"></div>
+
+<div class="page">
+
+    <!-- QUESTION SCREEN -->
+    <div class="card" id="questionCard">
+
+        <div class="heart-icon">❤️</div>
+
+        <h1>Hey, My Love</h1>
+
+        <p class="subtitle">
+            I have something important to ask you...
+            Something I've been wanting to say for a while.
+        </p>
+
+        <div class="question">
+            Will you be mine? 💕
+        </div>
+
+        <div class="buttons">
+
+            <button id="yesBtn">
+                YES ❤️
+            </button>
+
+            <button id="noBtn">
+                NO 🙈
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- SUCCESS SCREEN -->
+    <div class="card success hidden" id="successCard">
+
+        <div class="heart-icon">💖</div>
+
+        <h1>YAYYYYY! 🥰</h1>
+
+        <p class="love-message">
+            I knew you'd say yes! ❤️
+            <br><br>
+            You mean more to me than words can explain.
+            Every moment with you feels a little more special,
+            and I can't wait to make countless beautiful memories together.
+        </p>
+
+        <p class="signature">
+            Forever yours, ❤️
+            <br>
+            <strong>Rohit</strong>
+        </p>
+
+        <button class="restart" onclick="restart()">
+            Read It Again 💌
+        </button>
+
+    </div>
+
+</div>
+
+
+<script>
+
+/* =====================================================
+   EASY CUSTOMIZATION
+   ===================================================== */
+
+const CONFIG = {
+
+    // Change this name
+    name: "My Love",
+
+    // Change the question
+    question: "Will you be mine? 💕",
+
+    // Change the final message
+    finalMessage: `
+        You mean more to me than words can explain.
+        Every moment with you feels a little more special,
+        and I can't wait to make countless beautiful memories together.
+    `,
+
+    // Change your name
+    yourName: "Rohit"
+};
+
+
+/* =====================================================
+   ELEMENTS
+   ===================================================== */
+
+const yesBtn = document.getElementById("yesBtn");
+const noBtn = document.getElementById("noBtn");
+
+const questionCard = document.getElementById("questionCard");
+const successCard = document.getElementById("successCard");
+
+const questionText = document.querySelector(".question");
+const finalMessage = document.querySelector(".love-message");
+const signature = document.querySelector(".signature");
+
+
+/* =====================================================
+   LOAD CUSTOM TEXT
+   ===================================================== */
+
+questionText.textContent = CONFIG.question;
+
+finalMessage.innerHTML =
+    CONFIG.finalMessage.replace(/\n/g, "<br>");
+
+signature.innerHTML =
+    `Forever yours, ❤️<br><strong>${CONFIG.yourName}</strong>`;
+
+
+/* =====================================================
+   YES BUTTON
+   ===================================================== */
+
+yesBtn.addEventListener("click", function() {
+
+    questionCard.classList.add("hidden");
+    successCard.classList.remove("hidden");
+
+    createCelebration();
+
+});
+
+
+/* =====================================================
+   PLAYFUL NO BUTTON
+   ===================================================== */
+
+function moveNoButton() {
+
+    const card = questionCard.getBoundingClientRect();
+    const button = noBtn.getBoundingClientRect();
+
+    const maxX = card.width - button.width - 20;
+    const maxY = 100 - button.height;
+
+    let x = Math.random() * maxX - (card.width / 2 - button.width / 2);
+    let y = Math.random() * Math.max(maxY, 20) - 10;
+
+    x = Math.max(
+        -(card.width / 2 - button.width / 2) + 10,
+        Math.min(x, card.width / 2 - button.width / 2 - 10)
+    );
+
+    noBtn.style.left = "50%";
+    noBtn.style.transform =
+        `translate(calc(-50% + ${x}px), ${y}px)`;
+}
+
+
+/* Desktop */
+noBtn.addEventListener("mouseenter", moveNoButton);
+
+
+/* Mobile */
+noBtn.addEventListener("touchstart", function(e) {
+    e.preventDefault();
+    moveNoButton();
+});
+
+
+/* If they somehow click it */
+noBtn.addEventListener("click", function() {
+    moveNoButton();
+});
+
+
+/* =====================================================
+   FLOATING HEARTS
+   ===================================================== */
+
+function createFloatingHeart() {
+
+    const heart = document.createElement("div");
+
+    const hearts = [
+        "❤️",
+        "💕",
+        "💗",
+        "💖",
+        "💘",
+        "💝",
+        "💓"
+    ];
+
+    heart.className = "floating-heart";
+
+    heart.textContent =
+        hearts[Math.floor(Math.random() * hearts.length)];
+
+    heart.style.left =
+        Math.random() * 100 + "vw";
+
+    heart.style.fontSize =
+        (15 + Math.random() * 25) + "px";
+
+    heart.style.animationDuration =
+        (5 + Math.random() * 6) + "s";
+
+    document.body.appendChild(heart);
+
+    setTimeout(() => {
+        heart.remove();
+    }, 12000);
+}
+
+setInterval(createFloatingHeart, 700);
+
+
+/* =====================================================
+   YES CELEBRATION
+   ===================================================== */
+
+function createCelebration() {
+
+    for (let i = 0; i < 80; i++) {
+
+        setTimeout(() => {
+
+            const heart =
+                document.createElement("div");
+
+            const hearts = [
+                "❤️",
+                "💖",
+                "💕",
+                "💗",
+                "💘",
+                "✨",
+                "🥰"
+            ];
+
+            heart.className =
+                "celebration-heart";
+
+            heart.textContent =
+                hearts[Math.floor(Math.random() * hearts.length)];
+
+            heart.style.left =
+                Math.random() * 100 + "vw";
+
+            heart.style.fontSize =
+                (18 + Math.random() * 30) + "px";
+
+            heart.style.animationDuration =
+                (3 + Math.random() * 4) + "s";
+
+            document.body.appendChild(heart);
+
+            setTimeout(() => {
+                heart.remove();
+            }, 8000);
+
+        }, i * 45);
+    }
+
+}
+
+
+/* =====================================================
+   RESTART
+   ===================================================== */
+
+function restart() {
+
+    successCard.classList.add("hidden");
+    questionCard.classList.remove("hidden");
+
+    noBtn.style.left = "50%";
+    noBtn.style.transform = "translateX(15%)";
+
+}
+
+</script>
+
+</body>
+</html>
+```
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Just One Question ❤️</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    overflow: hidden;
+    font-family: "Segoe UI", Arial, sans-serif;
+    background:
+        radial-gradient(circle at top, #ffb6c9 0%, transparent 35%),
+        linear-gradient(135deg, #ff758c, #ff7eb3, #a855f7);
+    color: white;
+}
+
+.page {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    position: relative;
+}
+
+.card {
+    width: min(92%, 520px);
+    min-height: 570px;
+    padding: 45px 28px;
+    border-radius: 30px;
+    text-align: center;
+
+    background: rgba(255,255,255,0.16);
+    border: 1px solid rgba(255,255,255,0.35);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+
+    box-shadow:
+        0 25px 70px rgba(80,0,40,0.3),
+        inset 0 1px rgba(255,255,255,0.3);
+
+    position: relative;
+    z-index: 5;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.heart-icon {
+    font-size: 70px;
+    animation: heartbeat 1.4s infinite;
+    margin-bottom: 20px;
+}
+
+@keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    15% { transform: scale(1.18); }
+    30% { transform: scale(1); }
+    45% { transform: scale(1.15); }
+}
+
+h1 {
+    font-size: clamp(32px, 8vw, 52px);
+    margin-bottom: 18px;
+    line-height: 1.1;
+}
+
+.subtitle {
+    font-size: 18px;
+    line-height: 1.7;
+    max-width: 410px;
+    opacity: 0.95;
+    margin-bottom: 25px;
+}
+
+.question {
+    font-size: clamp(24px, 6vw, 34px);
+    font-weight: 700;
+    margin: 15px 0 35px;
+}
+
+.buttons {
+    position: relative;
+    width: 100%;
+    height: 100px;
+}
+
+button {
+    border: none;
+    padding: 15px 32px;
+    border-radius: 50px;
+    font-size: 18px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.25s, box-shadow 0.25s;
+    position: absolute;
+}
+
+#yesBtn {
+    left: 50%;
+    transform: translateX(-115%);
+    background: white;
+    color: #e91e63;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+}
+
+#yesBtn:hover {
+    transform: translateX(-115%) scale(1.08);
+    box-shadow: 0 12px 35px rgba(255,255,255,0.5);
+}
+
+#noBtn {
+    left: 50%;
+    transform: translateX(15%);
+    background: rgba(0,0,0,0.18);
+    color: white;
+    border: 1px solid rgba(255,255,255,0.5);
+}
+
+#noBtn:hover {
+    transform: translateX(15%) scale(0.95);
+}
+
+.hidden {
+    display: none !important;
+}
+
+.success h1 {
+    color: white;
+}
+
+.love-message {
+    font-size: 19px;
+    line-height: 1.8;
+    margin: 15px auto 25px;
+    max-width: 420px;
+}
+
+.signature {
+    font-size: 17px;
+    opacity: 0.9;
+}
+
+.restart {
+    position: relative;
+    margin-top: 25px;
+    background: white;
+    color: #e91e63;
+}
+
+.restart:hover {
+    transform: scale(1.05);
+}
+
+/* Floating hearts */
+.floating-heart {
+    position: fixed;
+    bottom: -50px;
+    pointer-events: none;
+    animation: floatUp linear forwards;
+    z-index: 1;
+    opacity: 0.75;
+}
+
+@keyframes floatUp {
+    from {
+        transform: translateY(0) rotate(0deg);
+        opacity: 0;
+    }
+    15% {
+        opacity: 0.8;
+    }
+    to {
+        transform: translateY(-110vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* Celebration hearts */
+.celebration-heart {
+    position: fixed;
+    top: -40px;
+    pointer-events: none;
+    z-index: 20;
+    animation: fall linear forwards;
+}
+
+@keyframes fall {
+    to {
+        transform: translateY(110vh) rotate(720deg);
+        opacity: 0;
+    }
+}
+
+/* Glow */
+.glow {
+    position: fixed;
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.12);
+    filter: blur(40px);
+    pointer-events: none;
+}
+
+.glow.one {
+    top: -100px;
+    left: -100px;
+}
+
+.glow.two {
+    bottom: -100px;
+    right: -100px;
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+
+    .card {
+        min-height: 560px;
+        padding: 35px 20px;
+        border-radius: 25px;
+    }
+
+    .heart-icon {
+        font-size: 60px;
+    }
+
+    .subtitle {
+        font-size: 16px;
+    }
+
+    .question {
+        font-size: 27px;
+        margin-bottom: 30px;
+    }
+
+    button {
+        font-size: 16px;
+        padding: 14px 25px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="glow one"></div>
+<div class="glow two"></div>
+
+<div class="page">
+
+    <!-- QUESTION SCREEN -->
+    <div class="card" id="questionCard">
+
+        <div class="heart-icon">❤️</div>
+
+        <h1>Hey, My Love</h1>
+
+        <p class="subtitle">
+            I have something important to ask you...
+            Something I've been wanting to say for a while.
+        </p>
+
+        <div class="question">
+            Will you be mine? 💕
+        </div>
+
+        <div class="buttons">
+
+            <button id="yesBtn">
+                YES ❤️
+            </button>
+
+            <button id="noBtn">
+                NO 🙈
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- SUCCESS SCREEN -->
+    <div class="card success hidden" id="successCard">
+
+        <div class="heart-icon">💖</div>
+
+        <h1>YAYYYYY! 🥰</h1>
+
+        <p class="love-message">
+            I knew you'd say yes! ❤️
+            <br><br>
+            You mean more to me than words can explain.
+            Every moment with you feels a little more special,
+            and I can't wait to make countless beautiful memories together.
+        </p>
+
+        <p class="signature">
+            Forever yours, ❤️
+            <br>
+            <strong>Rohit</strong>
+        </p>
+
+        <button class="restart" onclick="restart()">
+            Read It Again 💌
+        </button>
+
+    </div>
+
+</div>
+
+
+<script>
+
+/* =====================================================
+   EASY CUSTOMIZATION
+   ===================================================== */
+
+const CONFIG = {
+
+    // Change this name
+    name: "My Love",
+
+    // Change the question
+    question: "Will you be mine? 💕",
+
+    // Change the final message
+    finalMessage: `
+        You mean more to me than words can explain.
+        Every moment with you feels a little more special,
+        and I can't wait to make countless beautiful memories together.
+    `,
+
+    // Change your name
+    yourName: "Rohit"
+};
+
+
+/* =====================================================
+   ELEMENTS
+   ===================================================== */
+
+const yesBtn = document.getElementById("yesBtn");
+const noBtn = document.getElementById("noBtn");
+
+const questionCard = document.getElementById("questionCard");
+const successCard = document.getElementById("successCard");
+
+const questionText = document.querySelector(".question");
+const finalMessage = document.querySelector(".love-message");
+const signature = document.querySelector(".signature");
+
+
+/* =====================================================
+   LOAD CUSTOM TEXT
+   ===================================================== */
+
+questionText.textContent = CONFIG.question;
+
+finalMessage.innerHTML =
+    CONFIG.finalMessage.replace(/\n/g, "<br>");
+
+signature.innerHTML =
+    `Forever yours, ❤️<br><strong>${CONFIG.yourName}</strong>`;
+
+
+/* =====================================================
+   YES BUTTON
+   ===================================================== */
+
+yesBtn.addEventListener("click", function() {
+
+    questionCard.classList.add("hidden");
+    successCard.classList.remove("hidden");
+
+    createCelebration();
+
+});
+
+
+/* =====================================================
+   PLAYFUL NO BUTTON
+   ===================================================== */
+
+function moveNoButton() {
+
+    const card = questionCard.getBoundingClientRect();
+    const button = noBtn.getBoundingClientRect();
+
+    const maxX = card.width - button.width - 20;
+    const maxY = 100 - button.height;
+
+    let x = Math.random() * maxX - (card.width / 2 - button.width / 2);
+    let y = Math.random() * Math.max(maxY, 20) - 10;
+
+    x = Math.max(
+        -(card.width / 2 - button.width / 2) + 10,
+        Math.min(x, card.width / 2 - button.width / 2 - 10)
+    );
+
+    noBtn.style.left = "50%";
+    noBtn.style.transform =
+        `translate(calc(-50% + ${x}px), ${y}px)`;
+}
+
+
+/* Desktop */
+noBtn.addEventListener("mouseenter", moveNoButton);
+
+
+/* Mobile */
+noBtn.addEventListener("touchstart", function(e) {
+    e.preventDefault();
+    moveNoButton();
+});
+
+
+/* If they somehow click it */
+noBtn.addEventListener("click", function() {
+    moveNoButton();
+});
+
+
+/* =====================================================
+   FLOATING HEARTS
+   ===================================================== */
+
+function createFloatingHeart() {
+
+    const heart = document.createElement("div");
+
+    const hearts = [
+        "❤️",
+        "💕",
+        "💗",
+        "💖",
+        "💘",
+        "💝",
+        "💓"
+    ];
+
+    heart.className = "floating-heart";
+
+    heart.textContent =
+        hearts[Math.floor(Math.random() * hearts.length)];
+
+    heart.style.left =
+        Math.random() * 100 + "vw";
+
+    heart.style.fontSize =
+        (15 + Math.random() * 25) + "px";
+
+    heart.style.animationDuration =
+        (5 + Math.random() * 6) + "s";
+
+    document.body.appendChild(heart);
+
+    setTimeout(() => {
+        heart.remove();
+    }, 12000);
+}
+
+setInterval(createFloatingHeart, 700);
+
+
+/* =====================================================
+   YES CELEBRATION
+   ===================================================== */
+
+function createCelebration() {
+
+    for (let i = 0; i < 80; i++) {
+
+        setTimeout(() => {
+
+            const heart =
+                document.createElement("div");
+
+            const hearts = [
+                "❤️",
+                "💖",
+                "💕",
+                "💗",
+                "💘",
+                "✨",
+                "🥰"
+            ];
+
+            heart.className =
+                "celebration-heart";
+
+            heart.textContent =
+                hearts[Math.floor(Math.random() * hearts.length)];
+
+            heart.style.left =
+                Math.random() * 100 + "vw";
+
+            heart.style.fontSize =
+                (18 + Math.random() * 30) + "px";
+
+            heart.style.animationDuration =
+                (3 + Math.random() * 4) + "s";
+
+            document.body.appendChild(heart);
+
+            setTimeout(() => {
+                heart.remove();
+            }, 8000);
+
+        }, i * 45);
+    }
+
+}
+
+
+/* =====================================================
+   RESTART
+   ===================================================== */
+
+function restart() {
+
+    successCard.classList.add("hidden");
+    questionCard.classList.remove("hidden");
+
+    noBtn.style.left = "50%";
+    noBtn.style.transform = "translateX(15%)";
+
+}
+
+</script>
+
+</body>
+</html>
+```
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Just One Question ❤️</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    overflow: hidden;
+    font-family: "Segoe UI", Arial, sans-serif;
+    background:
+        radial-gradient(circle at top, #ffb6c9 0%, transparent 35%),
+        linear-gradient(135deg, #ff758c, #ff7eb3, #a855f7);
+    color: white;
+}
+
+.page {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    position: relative;
+}
+
+.card {
+    width: min(92%, 520px);
+    min-height: 570px;
+    padding: 45px 28px;
+    border-radius: 30px;
+    text-align: center;
+
+    background: rgba(255,255,255,0.16);
+    border: 1px solid rgba(255,255,255,0.35);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+
+    box-shadow:
+        0 25px 70px rgba(80,0,40,0.3),
+        inset 0 1px rgba(255,255,255,0.3);
+
+    position: relative;
+    z-index: 5;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.heart-icon {
+    font-size: 70px;
+    animation: heartbeat 1.4s infinite;
+    margin-bottom: 20px;
+}
+
+@keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    15% { transform: scale(1.18); }
+    30% { transform: scale(1); }
+    45% { transform: scale(1.15); }
+}
+
+h1 {
+    font-size: clamp(32px, 8vw, 52px);
+    margin-bottom: 18px;
+    line-height: 1.1;
+}
+
+.subtitle {
+    font-size: 18px;
+    line-height: 1.7;
+    max-width: 410px;
+    opacity: 0.95;
+    margin-bottom: 25px;
+}
+
+.question {
+    font-size: clamp(24px, 6vw, 34px);
+    font-weight: 700;
+    margin: 15px 0 35px;
+}
+
+.buttons {
+    position: relative;
+    width: 100%;
+    height: 100px;
+}
+
+button {
+    border: none;
+    padding: 15px 32px;
+    border-radius: 50px;
+    font-size: 18px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.25s, box-shadow 0.25s;
+    position: absolute;
+}
+
+#yesBtn {
+    left: 50%;
+    transform: translateX(-115%);
+    background: white;
+    color: #e91e63;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+}
+
+#yesBtn:hover {
+    transform: translateX(-115%) scale(1.08);
+    box-shadow: 0 12px 35px rgba(255,255,255,0.5);
+}
+
+#noBtn {
+    left: 50%;
+    transform: translateX(15%);
+    background: rgba(0,0,0,0.18);
+    color: white;
+    border: 1px solid rgba(255,255,255,0.5);
+}
+
+#noBtn:hover {
+    transform: translateX(15%) scale(0.95);
+}
+
+.hidden {
+    display: none !important;
+}
+
+.success h1 {
+    color: white;
+}
+
+.love-message {
+    font-size: 19px;
+    line-height: 1.8;
+    margin: 15px auto 25px;
+    max-width: 420px;
+}
+
+.signature {
+    font-size: 17px;
+    opacity: 0.9;
+}
+
+.restart {
+    position: relative;
+    margin-top: 25px;
+    background: white;
+    color: #e91e63;
+}
+
+.restart:hover {
+    transform: scale(1.05);
+}
+
+/* Floating hearts */
+.floating-heart {
+    position: fixed;
+    bottom: -50px;
+    pointer-events: none;
+    animation: floatUp linear forwards;
+    z-index: 1;
+    opacity: 0.75;
+}
+
+@keyframes floatUp {
+    from {
+        transform: translateY(0) rotate(0deg);
+        opacity: 0;
+    }
+    15% {
+        opacity: 0.8;
+    }
+    to {
+        transform: translateY(-110vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* Celebration hearts */
+.celebration-heart {
+    position: fixed;
+    top: -40px;
+    pointer-events: none;
+    z-index: 20;
+    animation: fall linear forwards;
+}
+
+@keyframes fall {
+    to {
+        transform: translateY(110vh) rotate(720deg);
+        opacity: 0;
+    }
+}
+
+/* Glow */
+.glow {
+    position: fixed;
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.12);
+    filter: blur(40px);
+    pointer-events: none;
+}
+
+.glow.one {
+    top: -100px;
+    left: -100px;
+}
+
+.glow.two {
+    bottom: -100px;
+    right: -100px;
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+
+    .card {
+        min-height: 560px;
+        padding: 35px 20px;
+        border-radius: 25px;
+    }
+
+    .heart-icon {
+        font-size: 60px;
+    }
+
+    .subtitle {
+        font-size: 16px;
+    }
+
+    .question {
+        font-size: 27px;
+        margin-bottom: 30px;
+    }
+
+    button {
+        font-size: 16px;
+        padding: 14px 25px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="glow one"></div>
+<div class="glow two"></div>
+
+<div class="page">
+
+    <!-- QUESTION SCREEN -->
+    <div class="card" id="questionCard">
+
+        <div class="heart-icon">❤️</div>
+
+        <h1>Hey, My Love</h1>
+
+        <p class="subtitle">
+            I have something important to ask you...
+            Something I've been wanting to say for a while.
+        </p>
+
+        <div class="question">
+            Will you be mine? 💕
+        </div>
+
+        <div class="buttons">
+
+            <button id="yesBtn">
+                YES ❤️
+            </button>
+
+            <button id="noBtn">
+                NO 🙈
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- SUCCESS SCREEN -->
+    <div class="card success hidden" id="successCard">
+
+        <div class="heart-icon">💖</div>
+
+        <h1>YAYYYYY! 🥰</h1>
+
+        <p class="love-message">
+            I knew you'd say yes! ❤️
+            <br><br>
+            You mean more to me than words can explain.
+            Every moment with you feels a little more special,
+            and I can't wait to make countless beautiful memories together.
+        </p>
+
+        <p class="signature">
+            Forever yours, ❤️
+            <br>
+            <strong>Rohit</strong>
+        </p>
+
+        <button class="restart" onclick="restart()">
+            Read It Again 💌
+        </button>
+
+    </div>
+
+</div>
+
+
+<script>
+
+/* =====================================================
+   EASY CUSTOMIZATION
+   ===================================================== */
+
+const CONFIG = {
+
+    // Change this name
+    name: "My Love",
+
+    // Change the question
+    question: "Will you be mine? 💕",
+
+    // Change the final message
+    finalMessage: `
+        You mean more to me than words can explain.
+        Every moment with you feels a little more special,
+        and I can't wait to make countless beautiful memories together.
+    `,
+
+    // Change your name
+    yourName: "Rohit"
+};
+
+
+/* =====================================================
+   ELEMENTS
+   ===================================================== */
+
+const yesBtn = document.getElementById("yesBtn");
+const noBtn = document.getElementById("noBtn");
+
+const questionCard = document.getElementById("questionCard");
+const successCard = document.getElementById("successCard");
+
+const questionText = document.querySelector(".question");
+const finalMessage = document.querySelector(".love-message");
+const signature = document.querySelector(".signature");
+
+
+/* =====================================================
+   LOAD CUSTOM TEXT
+   ===================================================== */
+
+questionText.textContent = CONFIG.question;
+
+finalMessage.innerHTML =
+    CONFIG.finalMessage.replace(/\n/g, "<br>");
+
+signature.innerHTML =
+    `Forever yours, ❤️<br><strong>${CONFIG.yourName}</strong>`;
+
+
+/* =====================================================
+   YES BUTTON
+   ===================================================== */
+
+yesBtn.addEventListener("click", function() {
+
+    questionCard.classList.add("hidden");
+    successCard.classList.remove("hidden");
+
+    createCelebration();
+
+});
+
+
+/* =====================================================
+   PLAYFUL NO BUTTON
+   ===================================================== */
+
+function moveNoButton() {
+
+    const card = questionCard.getBoundingClientRect();
+    const button = noBtn.getBoundingClientRect();
+
+    const maxX = card.width - button.width - 20;
+    const maxY = 100 - button.height;
+
+    let x = Math.random() * maxX - (card.width / 2 - button.width / 2);
+    let y = Math.random() * Math.max(maxY, 20) - 10;
+
+    x = Math.max(
+        -(card.width / 2 - button.width / 2) + 10,
+        Math.min(x, card.width / 2 - button.width / 2 - 10)
+    );
+
+    noBtn.style.left = "50%";
+    noBtn.style.transform =
+        `translate(calc(-50% + ${x}px), ${y}px)`;
+}
+
+
+/* Desktop */
+noBtn.addEventListener("mouseenter", moveNoButton);
+
+
+/* Mobile */
+noBtn.addEventListener("touchstart", function(e) {
+    e.preventDefault();
+    moveNoButton();
+});
+
+
+/* If they somehow click it */
+noBtn.addEventListener("click", function() {
+    moveNoButton();
+});
+
+
+/* =====================================================
+   FLOATING HEARTS
+   ===================================================== */
+
+function createFloatingHeart() {
+
+    const heart = document.createElement("div");
+
+    const hearts = [
+        "❤️",
+        "💕",
+        "💗",
+        "💖",
+        "💘",
+        "💝",
+        "💓"
+    ];
+
+    heart.className = "floating-heart";
+
+    heart.textContent =
+        hearts[Math.floor(Math.random() * hearts.length)];
+
+    heart.style.left =
+        Math.random() * 100 + "vw";
+
+    heart.style.fontSize =
+        (15 + Math.random() * 25) + "px";
+
+    heart.style.animationDuration =
+        (5 + Math.random() * 6) + "s";
+
+    document.body.appendChild(heart);
+
+    setTimeout(() => {
+        heart.remove();
+    }, 12000);
+}
+
+setInterval(createFloatingHeart, 700);
+
+
+/* =====================================================
+   YES CELEBRATION
+   ===================================================== */
+
+function createCelebration() {
+
+    for (let i = 0; i < 80; i++) {
+
+        setTimeout(() => {
+
+            const heart =
+                document.createElement("div");
+
+            const hearts = [
+                "❤️",
+                "💖",
+                "💕",
+                "💗",
+                "💘",
+                "✨",
+                "🥰"
+            ];
+
+            heart.className =
+                "celebration-heart";
+
+            heart.textContent =
+                hearts[Math.floor(Math.random() * hearts.length)];
+
+            heart.style.left =
+                Math.random() * 100 + "vw";
+
+            heart.style.fontSize =
+                (18 + Math.random() * 30) + "px";
+
+            heart.style.animationDuration =
+                (3 + Math.random() * 4) + "s";
+
+            document.body.appendChild(heart);
+
+            setTimeout(() => {
+                heart.remove();
+            }, 8000);
+
+        }, i * 45);
+    }
+
+}
+
+
+/* =====================================================
+   RESTART
+   ===================================================== */
+
+function restart() {
+
+    successCard.classList.add("hidden");
+    questionCard.classList.remove("hidden");
+
+    noBtn.style.left = "50%";
+    noBtn.style.transform = "translateX(15%)";
+
+}
+
+</script>
+
+</body>
+</html>
+```
